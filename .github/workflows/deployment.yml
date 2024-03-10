@@ -38,6 +38,7 @@ jobs:
         run: terraform apply -var-file=env/staging-us-east-1.tfvars  -auto-approve
         working-directory: ${{ github.workspace }}
 
-      - name: Terraform Output
-        run: terraform output
-        working-directory: ${{ github.workspace }}
+      - name: Result
+        run: |
+          echo '### Terraform execution :checkered_flag:' 
+          echo -e $(terraform output)
