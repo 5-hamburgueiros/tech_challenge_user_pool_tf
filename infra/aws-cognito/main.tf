@@ -1,6 +1,6 @@
 resource "aws_cognito_user_pool" "tech_challenge_user_pool" {
   name = "tech_challenge_user_pool"
-  username_attributes = ["email"]
+
   lambda_config {
     create_auth_challenge = var.create_auth_challenge
     define_auth_challenge = var.define_auth_challenge
@@ -24,4 +24,36 @@ resource "aws_cognito_user_pool_client" "tech_challenge_user_pool_client" {
   callback_urls = ["http://localhost:3000"]
   logout_urls = ["http://localhost:3000"]
   supported_identity_providers = ["COGNITO"]
+}
+
+resource "aws_lambda_permission" "allow_cognito_to_invoke_pre_sign_up" {
+  statement_id  = "AllowExecutionFromCognito"
+  action        = "lambda:InvokeFunction"
+  function_name = var.pre_sign_up
+  principal     = "cognito-idp.amazonaws.com"
+  source_arn    = aws_cognito_user_pool.tech_challenge_user_pool.arn
+}
+
+resource "aws_lambda_permission" "allow_cognito_to_invoke_create_auth_challenge" {
+  statement_id  = "AllowExecutionFromCognito"
+  action        = "lambda:InvokeFunction"
+  function_name = var.create_auth_challenge
+  principal     = "cognito-idp.amazonaws.com"
+  source_arn    = aws_cognito_user_pool.tech_challenge_user_pool.arn
+}
+
+resource "aws_lambda_permission" "allow_cognito_to_invoke_define_auth_challenge" {
+  statement_id  = "AllowExecutionFromCognito"
+  action        = "lambda:InvokeFunction"
+  function_name = var.define_auth_challenge
+  principal     = "cognito-idp.amazonaws.com"
+  source_arn    = aws_cognito_user_pool.tech_challenge_user_pool.arn
+}
+
+resource "aws_lambda_permission" "allow_cognito_to_invoke_verify_auth_challenge" {
+  statement_id  = "AllowExecutionFromCognito"
+  action        = "lambda:InvokeFunction"
+  function_name = var.verify_auth_challenge
+  principal     = "cognito-idp.amazonaws.com"
+  source_arn    = aws_cognito_user_pool.tech_challenge_user_pool.arn
 }
