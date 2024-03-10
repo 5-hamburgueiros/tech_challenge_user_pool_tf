@@ -40,5 +40,5 @@ jobs:
 
       - name: Result
         run: |
-          echo '### Terraform execution :checkered_flag:' 
-          echo -e $(terraform output)
+          echo '### Terraform execution :checkered_flag:' > $GITHUB_STEP_SUMMARY
+          echo -e $(terraform output) >> $GITHUB_STEP_SUMMARY
