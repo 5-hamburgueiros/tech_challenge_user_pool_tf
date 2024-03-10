@@ -10,7 +10,7 @@ variable "create_auth_challenge" {
   type = string
 }
 
-variable "verify_auth_challenge_response" {
+variable "verify_auth_challenge" {
   type = string
 }
 
