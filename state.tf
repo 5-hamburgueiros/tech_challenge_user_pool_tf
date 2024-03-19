@@ -14,7 +14,7 @@ terraform {
   }
 
   backend "s3" {
-    bucket = "tech-challenge-tf-tfstate"
+    bucket = "state-terraform-fiap-grupo-52"
     key    = "aws-cognito.tfstate"
     region = "us-east-1"
   }
